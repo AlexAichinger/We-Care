@@ -1,73 +1,46 @@
-import json
-from utils_google import get_vision_api
-from utils_image import (read_image, read_image_base64, save_image, draw_face, draw_box, draw_text)
+import argparse
+import base64
+import httplib2
 
-url = http://www.drodd.com/images15/face9.jpg
-opener = urllib.urlopen(url)
+from apiclient.discovery import build
+from oauth2client.client import GoogleCredentials
 
-#    with open(photo_file, 'rb') as image:
-image_content = base64.b64encode(opener.read())
+def main(photo_file):
+ '''Run a label request on a single image'''
 
-inputfile  = "input.jpg"
-outputfile = "output.jpg"
+ API_DISCOVERY_FILE = 'https://vision.googleapis.com/$discovery/rest?version=v1'
+ http = httplib2.Http()
 
-def main():
+ credentials = GoogleCredentials.get_application_default().create_scoped(
+     ['https://www.googleapis.com/auth/cloud-platform'])
+ credentials.authorize(http)
 
-	vision = get_vision_api()
-	
-	body = make_request(inputfile)
-	response = vision.images().annotate(body=body).execute()
-	
-	show_results(inputfile, response, outputfile)
-	
-def make_request(inputfile):
-	""" Create a request batch (one file at a time) """
-	return {
-		"requests":[
-			{
-				"image":{
-	    				"content": read_image_base64(inputfile)
-	    			},
-				"features": [
-					{
-						"type":"LABEL_DETECTION",
-      						"maxResults": 10
-      					},
-      					{
-      						"type":"TEXT_DETECTION",
-      						"maxResults": 10
-      					},
-      					{
-      						"type":"FACE_DETECTION",
-      						"maxResults": 20
-      					}
-      				]
-			}
-		]
-	}
+ service = build('vision', 'v1', http, discoveryServiceUrl=API_DISCOVERY_FILE)
 
-def show_results(inputfile, data, outputfile):
-
-	#read original file
-	im = read_image(inputfile)
-
-	#draw face, boxes and text for each response
-	for r in data['responses']:
-
-		if 'faceAnnotations' in r:
-			draw_face(im, r['faceAnnotations'])
-
-		if 'labelAnnotations' in r:
-			strs = map(lambda a: a['description'], r['labelAnnotations'])
-			im = draw_text(im, ", ".join(strs))
-
-		for field in ['textAnnotations', 'logoAnnotations']:
-			if field in r:
-				for a in r[field]:
-					draw_box(im, a['boundingPoly']['vertices'])
-
-	#save to output file
-	save_image(outputfile, im)
+ with open(photo_file, 'rb') as image:
+   image_content = base64.b64encode(image.read())
+   service_request = service.images().annotate(
+     body={
+       'requests': [{
+         'image': {
+           'content': image_content
+          },
+         'features': [{
+           'type': 'LABEL_DETECTION',
+           'maxResults': 5,
+          }]
+        }]
+     })
+   response = service_request.execute()
+   for results in response['responses']:
+     if 'labelAnnotations' in results:          
+       for annotations in results['labelAnnotations']:
+         print('Found label %s, score = %s' % (annotations['description'],annotations['score']))
+   return 0
 
 if __name__ == '__main__':
-	main()
+ parser = argparse.ArgumentParser()
+ parser.add_argument(
+   'image_file', help='The image you\'d like to label.')
+ args = parser.parse_args()
+ main(args.image_file)
