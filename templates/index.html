@@ -1,9 +1,53 @@
 {% extends "base.html" %}
 
 {% block header %}
-<link rel="stylesheet" type="text/css" href="../static/css/index.css">
 {% endblock %}
 
 {% block content %}
-Hello
+<div class="white-text container">
+  <h1 class="center-align">We <span class="black-text">Care</span></h1>
+
+  <p>
+    and we know you do too. Whether it be a friend, a family member, or a person you met a couple of days ago, empathy has no boundaries. Millions across the world experience depression, and they can't take a step forward in their lives without our help. 
+  </p>
+
+  <p>
+    Enter your social media credentials as well as the person you're concerned about below, and we'll tell you if they're in danger of this crippling disease.
+  </p>
+
+  <div class="form">
+    <div class="row">
+      <form class="col s12">
+        <div class="row">
+          <div class="input-field col s12">
+            Facebook
+            <a id="add" class="waves-effect waves-light btn blue-grey darken-4">Add</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            Twitter
+            <div class="input-field inline">
+              <input id="twitter" class="validate">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            Instagram
+            <div class="input-field inline">
+              <input id="instagram" class="validate">
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <button class="btn waves-effect waves-light blue-grey darken-4" type="submit" name="action">
+      Submit
+      <i class="material-icons right">send</i>
+    </button>
+  </div>
+</div>
+
 {% endblock %}
