@@ -12,7 +12,6 @@ $(document).ready(function() {
     var instagram = $('#instagram').val();
     controllers.submit(twitter, instagram);
   });
-  display.displayValue(0.32);
 });
 
 var controllers = {
@@ -31,6 +30,7 @@ var controllers = {
     });
   },
   submit: function(twitter, instagram) {
+    display.displayValue(9);
     $.post({
       url: "/get-numeric",
       data: twitter
