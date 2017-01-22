@@ -29,6 +29,7 @@ var controllers = {
     });
   },
   submit: function(twitter, instagram) {
+    display.startLoading();
     $.post({
       url: "/process",
       data: twitter
@@ -41,19 +42,19 @@ var controllers = {
 };
 
 var display = {
-  displayValue: function(value) {
+  startLoading: function() {
     $('#start_content').css('display', 'none');
     $('#load').css('display', 'block');
-    setTimeout(function() {
-      $('#load').css('display', 'none');
-      $('#gauge').css('display', 'block');
-      var g = new JustGage({
-        id: "gauge",
-        value: value * 100,
-        min: -100,
-        max: 100,
-        title: "Happiness Level"
-      });
-    }, 3000);
+  },
+  displayValue: function(value) {
+    $('#load').css('display', 'none');
+    $('#gauge').css('display', 'block');
+    var g = new JustGage({
+      id: "gauge",
+      value: value * 100,
+      min: -100,
+      max: 100,
+      title: "Happiness Level"
+    });
   }
 };
