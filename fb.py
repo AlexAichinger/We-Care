@@ -1,10 +1,11 @@
 import facebook
-import urllib
-import urlparse
-import subprocess
-import warnings
+#import urllib
+#import urlparse
+#import subprocess
+#import warnings
 
-warnings.filterwarnings('ignore', category=DeprecationWarning)
+
+#warnings.filterwarnings('ignore', category=DeprecationWarning)
 
 def getFriends(profile_id, access_token):
   graph = facebook.GraphAPI(access_token)
