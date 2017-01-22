@@ -2,30 +2,32 @@ body {
   background: #4db6ac;
 }
 
-/* label color */
-.input-field label {
-  color: white;
-}
-/* label focus color */
-.input-field input[type=text]:focus + label {
- color: black;
-}
-/* valid color */
-.input-field input[type=text].valid {
- border-bottom: 1px solid black;
- box-shadow: 0 1px 0 0 black;
-}
-/* invalid color */
-.input-field input[type=text].invalid {
- border-bottom: 1px solid #000;
- box-shadow: 0 1px 0 0 #000;
+.input-field input {
+  margin-left: 0.5em;
+  border-bottom: 1px solid white;
+  box-shadow: 0 1px 0 0 white;
 }
 
-#add {
+.input-field input:focus {
+  color: black;
+  border-bottom: 1px solid #263238 !important;
+  box-shadow: 0 1px 0 0 #263238 !important;
+}
+
+#authenticate-facebook {
+  margin-left: 1em;
+}
+
+#user {
   margin-left: 1em;
 }
 
 .black-custom {
   color: #263238;
   font-weight: bold;
+}
+
+h1 {
+  font-size: 13em;
+  color: #263238;
 }
