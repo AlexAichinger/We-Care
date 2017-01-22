@@ -4,8 +4,6 @@ $(document).ready(function() {
     controllers.authenticate_facebook();
   });
   */
-  $('#load').css('display', 'none');
-  $('#gauge').css('display', 'none');
   $('#submit').on("click", function(evt) {
     //var facebook = $('#facebook').val();
     var twitter = $('#twitter').val();
@@ -32,10 +30,9 @@ var controllers = {
   submit: function(twitter, instagram) {
     display.displayValue(9);
     $.post({
-      url: "/get-numeric",
+      url: "/process",
       data: twitter
     }).done(function(data) {
-      console.log(data);
       display.displayValue(data);
     }).fail(function(data) {
 
@@ -44,19 +41,17 @@ var controllers = {
 };
 
 var display = {
+  scrollToBottom: function() {
+    window.scrollTo(0, document.body.scrollHeight);
+  },
   displayValue: function(value) {
-    $('#initial-content').css('display', 'none');
-    $('#load').css('display', 'block');
-    setTimeout(function() {
-      $('#load').css('display', 'none');
-      $('#gauge').css('display', 'block');
-      var g = new JustGage({
-        id: "gauge",
-        value: value * 100,
-        min: -100,
-        max: 100,
-        title: "Depression Indicator"
-      });
-    }, 3000);
+    var g = new JustGage({
+      id: "gauge",
+      value: value * 100,
+      min: -100,
+      max: 100,
+      title: "levelOfDepression"
+    });
+    display.scrollToBottom();
   }
 };
