@@ -1,15 +1,20 @@
 import logging
 
 from flask import Flask, render_template, request, jsonify
-from rauth import OAuth2Service
+#from rauth import OAuth2Service
 import os
-from fb import getFriends
+#from fb import getFriends
+#from getNumeric import 
 
 app = Flask(__name__)
 access_token = ""
 
 @app.route('/')
 def home():
+  return render_template('index.html', user='None')
+
+@app.route('/get-numeric')
+def getNumeric():
   return render_template('index.html', user='None')
 
 '''
@@ -41,4 +46,3 @@ def authenticate_facebook():
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
-    

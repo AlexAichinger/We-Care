@@ -31,3 +31,44 @@ guage {
   margin: 10 10 10 10;
 }
 
+.containerLoad {
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 250px;
+  height: 250px;
+  margin: auto;
+}
+
+.part {
+  width: 250px;
+  position: absolute;
+}
+
+.svgpath {
+  fill: rgba(145,220,90,0);
+  stroke: white;
+  stroke-width: 1.5px;
+  stroke-dasharray: 1000;
+  stroke-linecap: round;
+  z-index: 2;
+}
+
+.svgbg {
+  fill: white;
+  z-index: 1;
+}
+
+#playload {
+  animation: dash 2.5s reverse ease-in-out infinite;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 2000;
+  }
+}
+
+

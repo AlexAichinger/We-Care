@@ -4,13 +4,15 @@ $(document).ready(function() {
     controllers.authenticate_facebook();
   });
   */
+  $('#load').css('display', 'none');
+  $('#gauge').css('display', 'none');
   $('#submit').on("click", function(evt) {
     //var facebook = $('#facebook').val();
     var twitter = $('#twitter').val();
     var instagram = $('#instagram').val();
     controllers.submit(twitter, instagram);
   });
-  display.displayValue(0);
+  display.displayValue(0.32);
 });
 
 var controllers = {
@@ -33,6 +35,7 @@ var controllers = {
       url: "/getNumeric.py",
       data: twitter
     }).done(function(data) {
+      console.log(data);
       display.displayValue(data);
     }).fail(function(data) {
 
@@ -45,6 +48,8 @@ var display = {
     window.scrollTo(0, document.body.scrollHeight);
   },
   displayValue: function(value) {
+    $('#load').css('display', 'block');
+    display.scrollToBottom();
     var g = new JustGage({
       id: "gauge",
       value: value * 100,
@@ -52,6 +57,10 @@ var display = {
       max: 100,
       title: "levelOfDepression"
     });
-    display.scrollToBottom();
+    setTimeout(function() {
+      $('#load').css('display', 'none');
+      $('#gauge').css('display', 'block');
+      display.scrollToBottom();
+    }, 2000);
   }
 };
