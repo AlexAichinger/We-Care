@@ -8,8 +8,9 @@ access_token = ""
 
 @app.route('/')
 def home():
-    return render_template('index.html', user='None')
+  return render_template('index.html', user='None')
 
+'''
 @app.route('/redirect')
 def redirect():
     return render_template('index.html', user='None');
@@ -27,14 +28,14 @@ def authenticate_facebook():
         authorize_url='https://graph.facebook.com/oauth/authorize',
         access_token_url='https://graph.facebook.com/oauth/access_token',
         base_url='https://graph.facebook.com/')
-    redirect_uri = 'localhost:5000/redirect'
+    redirect_uri = 'http://localhost:5000/redirect'
     params = {'scope': 'read_stream',
     'response_type': 'code',
     'redirect_uri': redirect_uri}
     url = facebook.get_authorize_url(**params)
     return jsonify(success=True, url=url)
+    '''
 
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
-    
+    if __name__ == '__main__':
+      port = int(os.environ.get('PORT', 5000))
+      app.run(host='0.0.0.0', port=port, debug=True)

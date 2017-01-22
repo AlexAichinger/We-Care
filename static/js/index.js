@@ -1,15 +1,16 @@
 $(document).ready(function() {
-  $('#value').css("visibility", "hidden");
+  /*
   $('#authenticate-facebook').on("click", function(evt) {
     controllers.authenticate_facebook();
   });
+  */
   $('#submit').on("click", function(evt) {
-    var facebook = $('#facebook').val();
+    //var facebook = $('#facebook').val();
     var twitter = $('#twitter').val();
     var instagram = $('#instagram').val();
-    controllers.submit(facebook, twitter, instagram);
+    controllers.submit(twitter, instagram);
   });
-  display.displayValue(500);
+  display.displayValue(0);
 });
 
 var controllers = {
@@ -27,16 +28,12 @@ var controllers = {
 
     });
   },
-  submit: function(facebook, twitter, instagram) {
+  submit: function(twitter, instagram) {
     $.post({
-      url: '/submit',
-      data: [facebook, twitter, instagram]
+      url: "/getNumeric.py",
+      data: twitter
     }).done(function(data) {
-      if (data.success) {
-        display.displayValue(500);
-      } else {
-
-      }
+      display.displayValue(data);
     }).fail(function(data) {
 
     });
@@ -48,10 +45,13 @@ var display = {
     window.scrollTo(0, document.body.scrollHeight);
   },
   displayValue: function(value) {
-    var element = $('#value');
-    $('#value span').html(value);
-    element.css("visibility", "visible");
-    element.addClass('valign-wrapper');
+    var g = new JustGage({
+      id: "gauge",
+      value: value * 100,
+      min: -100,
+      max: 100,
+      title: "levelOfDepression"
+    });
     display.scrollToBottom();
   }
 };
