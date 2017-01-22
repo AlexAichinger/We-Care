@@ -32,7 +32,7 @@ var controllers = {
   },
   submit: function(twitter, instagram) {
     $.post({
-      url: "/getNumeric.py",
+      url: "/get-numeric",
       data: twitter
     }).done(function(data) {
       console.log(data);
@@ -44,23 +44,19 @@ var controllers = {
 };
 
 var display = {
-  scrollToBottom: function() {
-    window.scrollTo(0, document.body.scrollHeight);
-  },
   displayValue: function(value) {
+    $('#initial-content').css('display', 'none');
     $('#load').css('display', 'block');
-    display.scrollToBottom();
-    var g = new JustGage({
-      id: "gauge",
-      value: value * 100,
-      min: -100,
-      max: 100,
-      title: "levelOfDepression"
-    });
     setTimeout(function() {
       $('#load').css('display', 'none');
       $('#gauge').css('display', 'block');
-      display.scrollToBottom();
-    }, 2000);
+      var g = new JustGage({
+        id: "gauge",
+        value: value * 100,
+        min: -100,
+        max: 100,
+        title: "Depression Indicator"
+      });
+    }, 3000);
   }
 };

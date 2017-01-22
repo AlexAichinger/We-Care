@@ -65,6 +65,15 @@ guage {
   animation: dash 2.5s reverse ease-in-out infinite;
 }
 
+text {
+  fill: white !important;
+}
+
+#gauge {
+  width: 300px;
+  height: 250px;
+}
+
 @keyframes dash {
   to {
     stroke-dashoffset: 2000;
