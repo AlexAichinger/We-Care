@@ -4,6 +4,8 @@ $(document).ready(function() {
     controllers.authenticate_facebook();
   });
   */
+  $('#gauge').css('display', 'none');
+  $('#load').css('display', 'none');
   $('#submit').on("click", function(evt) {
     //var facebook = $('#facebook').val();
     var twitter = $('#twitter').val();
@@ -18,7 +20,6 @@ var controllers = {
       url: '/authenticate-facebook'
     }).done(function(data) {
       if (data.success) {
-        display.displayValue(9);
         console.log(data.url);
       } else {
 
@@ -28,7 +29,6 @@ var controllers = {
     });
   },
   submit: function(twitter, instagram) {
-    display.displayValue(9);
     $.post({
       url: "/process",
       data: twitter
@@ -41,17 +41,19 @@ var controllers = {
 };
 
 var display = {
-  scrollToBottom: function() {
-    window.scrollTo(0, document.body.scrollHeight);
-  },
   displayValue: function(value) {
-    var g = new JustGage({
-      id: "gauge",
-      value: value * 100,
-      min: -100,
-      max: 100,
-      title: "levelOfDepression"
-    });
-    display.scrollToBottom();
+    $('#start_content').css('display', 'none');
+    $('#load').css('display', 'block');
+    setTimeout(function() {
+      $('#load').css('display', 'none');
+      $('#gauge').css('display', 'block');
+      var g = new JustGage({
+        id: "gauge",
+        value: value * 100,
+        min: -100,
+        max: 100,
+        title: "Happiness Level"
+      });
+    }, 3000);
   }
 };
