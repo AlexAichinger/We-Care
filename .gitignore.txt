@@ -1,5 +1,0 @@
-#Custom .gitignore file made by AchmeddaBeast(Amit)
-
-venv/
-
-__pycache__/
