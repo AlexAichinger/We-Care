@@ -25,6 +25,7 @@ body {
   margin-left: 1em;
 }
 
-.highlight {
-  background-color: black;
+.black-custom {
+  color: #263238;
+  font-weight: bold;
 }
