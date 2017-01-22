@@ -10,8 +10,8 @@ access_token = ""
 def home():
     return render_template('index.html')
 
-@app.route('/authenticate-facebook', methods=["GET"])
-def authenticate_facebook():
+#@app.route('/authenticate-facebook', methods=["GET"])
+#def authenticate_facebook():
     '''
     FB_CLIENT_ID = '769684356512385'
     FB_CLIENT_SECRET = 'bfafc3ab14067170a74e3977643584f6'
@@ -27,7 +27,7 @@ def authenticate_facebook():
     params = {'redirect_url': redirect_url}
     access_token = facebook.get_authorize_url(**params)
     '''
-    return jsonify(success=True)
+#    return jsonify(success=True)
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
